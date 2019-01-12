@@ -1,0 +1,6 @@
+Application\OperationRepository.class
+Application\OperationController.class
+Application\Compte.class
+Application\Operation.class
+Application\App.class
+Application\HomeController.class
