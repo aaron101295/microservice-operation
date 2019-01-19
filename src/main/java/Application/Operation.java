@@ -1,6 +1,7 @@
 package Application;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Operation implements Serializable {
     private String ibansource;
     private String ibandest;
     private Double montant;
+    @JsonFormat(locale = "hu", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Budapest")
     private Date date;
 
     public Operation() {
@@ -41,6 +43,7 @@ public class Operation implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -49,6 +52,7 @@ public class Operation implements Serializable {
         this.type = type;
     }
 
+    @Column(name = "ibansource")
     public String getIbansource() {
         return ibansource;
     }
@@ -57,6 +61,7 @@ public class Operation implements Serializable {
         this.ibansource = ibansource;
     }
 
+    @Column(name = "ibandest")
     public String getIbandest() {
         return ibandest;
     }
@@ -65,6 +70,7 @@ public class Operation implements Serializable {
         this.ibandest = ibandest;
     }
 
+    @Column(name = "montant")
     public Double getMontant() {
         return montant;
     }
@@ -73,6 +79,7 @@ public class Operation implements Serializable {
         this.montant = montant;
     }
 
+    @Column(name = "date")
     public Date getDate() {
         return date;
     }

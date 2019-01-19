@@ -18,15 +18,17 @@ public class Compte implements Serializable {
     private String typedecompte;
     private Double interet;
     private String frais;
+    private Double solde;
 
     public Compte() {
     }
 
-    public Compte(String iban, String typedecompte, Double interet, String frais) {
+    public Compte(String iban, String typedecompte, Double interet, String frais, Double solde) {
         this.iban = iban;
         this.typedecompte = typedecompte;
         this.interet = interet;
         this.frais = frais;
+        this.solde = solde;
     }
 
 
@@ -69,4 +71,14 @@ public class Compte implements Serializable {
     public void setFrais(String frais) {
         this.frais = frais;
     }
+
+    public Double getSolde() {
+        return solde;
+    }
+
+    public void setSolde(Double solde) {
+        this.solde = solde;
+    }
+
 }
+

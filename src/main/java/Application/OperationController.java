@@ -3,16 +3,17 @@ package Application;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/operation")
@@ -67,27 +68,7 @@ public class OperationController {
         return ResponseEntity.noContent().build();
     }
 
-
-    @RequestMapping(value="/view",method = {RequestMethod.GET})
-    public ModelAndView getAccountForDemo() {
-
-       ModelAndView mav = new ModelAndView("compte/afficherCompte");
-
-
-       List<Compte> compte = new ArrayList<Compte>();
-
-       RestTemplate restTemplate = new RestTemplate();
-       ResponseEntity<List> responseEntity = restTemplate.getForEntity("http://localhost:8000/compte/all",List.class);
-
-       compte = responseEntity.getBody();
-
-       mav.addObject("compte", compte);
-
-       System.out.println(compte.toString());
-       return mav;
-    }
-
-    @RequestMapping(value="/json",method = {RequestMethod.GET})
+    @RequestMapping(value="/afficherCompte",method = {RequestMethod.GET})
     public List<Compte> afficherCompte() {
 
 
@@ -116,4 +97,68 @@ public class OperationController {
         System.out.println(ibansource);
         return operation;
     }
+
+
+    @RequestMapping(value="/bydate" , method=RequestMethod.GET)
+    public Operation opertaionParDate(@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
+        Operation operation = operationRepository.findByDate(date);
+        System.out.println(date);
+        return operation;
+    }
+
+    @RequestMapping(value="/retirer")
+    public static void retirerArgent(@RequestParam("montant") Double montant,@RequestParam long id){
+
+        final String uri = "http://localhost:8000/compte/retirer/"+id;
+
+
+        RestTemplate template = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("montant", montant.toString());
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity= new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+        template.put(uri, requestEntity,  HashMap.class);
+    }
+
+    @RequestMapping(value="/deposer")
+    public static void deposerArgent(@RequestParam("montant") Double montant,@RequestParam long id){
+
+        final String uri = "http://localhost:8000/compte/deposer/"+id;
+
+
+        RestTemplate template = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("montant", montant.toString());
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity= new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+        template.put(uri, requestEntity,  HashMap.class);
+    }
+
+
+    @RequestMapping(value="/virement")
+    public static void faireUnVirement(@RequestParam("montant") Double montant,@RequestParam long id1, @RequestParam long id2){
+
+        final String uri = "http://localhost:8000/compte/virement/"+id1+"/"+id2;
+
+
+        RestTemplate template = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("montant", montant.toString());
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity= new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+        template.put(uri, requestEntity,  HashMap.class);
+
+    }
+
+
+
 }
