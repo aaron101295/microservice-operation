@@ -23,7 +23,7 @@ public class OperationController {
     private OperationRepository operationRepository;
 
     @GetMapping("/all")
-    public List<Operation> retrouveTousLesComptes() {
+    public List<Operation> retrouveToutesLesOperations() {
 
         List<Operation> operation = operationRepository.findAll();
         return operation;
@@ -38,12 +38,12 @@ public class OperationController {
 
 
     @DeleteMapping("/supprimer/{id}")
-    public void supprimerCompte(@PathVariable long id) {
+    public void supprimerOperation(@PathVariable long id) {
         operationRepository.deleteById(id);
     }
 
     @PostMapping("/creer")
-    public ResponseEntity<Object> creerCompte(@RequestBody Operation operation) {
+    public ResponseEntity<Object> creerOperation(@RequestBody Operation operation) {
         Operation operationCree = operationRepository.save(operation);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -54,7 +54,7 @@ public class OperationController {
     }
 
     @PutMapping("/MAJOperation/{id}")
-    public ResponseEntity<Object> majCompte(@RequestBody Operation operation, @PathVariable long id) {
+    public ResponseEntity<Object> majOperation(@RequestBody Operation operation, @PathVariable long id) {
 
         Optional<Operation> operationOptional = operationRepository.findById(id);
 
@@ -98,7 +98,6 @@ public class OperationController {
         return operation;
     }
 
-
     @RequestMapping(value="/bydate" , method=RequestMethod.GET)
     public Operation opertaionParDate(@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
         Operation operation = operationRepository.findByDate(date);
@@ -109,7 +108,7 @@ public class OperationController {
     @RequestMapping(value="/retirer")
     public static void retirerArgent(@RequestParam("montant") Double montant,@RequestParam long id){
 
-        final String uri = "http://localhost:8000/compte/retirer/"+id;
+        final String uri = "http://192.168.99.100:8000/compte/retirer/"+id;
 
 
         RestTemplate template = new RestTemplate();
@@ -126,7 +125,7 @@ public class OperationController {
     @RequestMapping(value="/deposer")
     public static void deposerArgent(@RequestParam("montant") Double montant,@RequestParam long id){
 
-        final String uri = "http://localhost:8000/compte/deposer/"+id;
+        final String uri = "http://192.168.99.100:8000/compte/deposer/"+id;
 
 
         RestTemplate template = new RestTemplate();
@@ -144,7 +143,7 @@ public class OperationController {
     @RequestMapping(value="/virement")
     public static void faireUnVirement(@RequestParam("montant") Double montant,@RequestParam long id1, @RequestParam long id2){
 
-        final String uri = "http://localhost:8000/compte/virement/"+id1+"/"+id2;
+        final String uri = "http://192.168.99.100:8000/compte/virement/"+id1+"/"+id2;
 
 
         RestTemplate template = new RestTemplate();

@@ -9,5 +9,6 @@ import java.util.Date;
 public interface OperationRepository extends JpaRepository<Operation, Long> {
     Operation findByType(String type);
     Operation findByIbansourceAndIbandest(String ibansource, String ibandest);
+    Operation findByIbansource(String ibansource);
     Operation findByDate(Date date);
 }

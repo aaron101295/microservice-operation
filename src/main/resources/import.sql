@@ -1,1 +1,2 @@
 INSERT INTO operations (id,type,ibansource,ibandest,montant,date) VALUES (1,'virement','FR7630004000031234567cdc890143','FR7630004000031234567cdc890155',100,'1995-12-10');
+INSERT INTO operations (id,type,ibansource,ibandest,montant,date) VALUES (2,'mandat','FR7630004000031234567cdc890144','FR7630004000031234567cdc890156',20,'1995-12-11');
