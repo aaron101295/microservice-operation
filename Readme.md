@@ -74,7 +74,7 @@ GET 192.168.99.100:8001/operation//byType/{type}
 
 Rechercher une opération par date:
 ```
-GET 192.168.99.100:8001/operation//bydate/{yyyy-MM-dd"}
+GET 192.168.99.100:8001/operation/bydate/{yyyy-MM-dd"}
 ```
 
 Retirer de l'argent :
@@ -86,3 +86,28 @@ Faire un virement :
 ```
 PUT 192.168.99.100:8001/operation/virement?montant=?&id1=?&id2=?
 ```
+
+# Exemple de requêtes
+
+Method	| Path	| Description | Paramètres
+------------- | ------------------------- | ------------- |:----------------:|
+GET	| /operation/all	| Afficher toutes les opérations	| | 
+POST	| /operation/creer	| Créer une operation  | Oui, cf Paramètres | 
+DELETE	| /operation/supprimer/{id}	| Supprimer une opération	| | 
+PUT	| /operation/MAJOperation/{id}	| Modifier une operation | Oui, cf Paramètres | 
+GET	| /operation/byType/{type}	| Rechercher une opération par type	| | 
+GET	| /operation/bydate/{yyyy-MM-dd"}	| Rechercher une opération par date	| | 
+GET	| /operation/source/{ibansource}/dest/{ibandest} | Rechercher une opération par iban source et iban dest	| | 
+PUT	| /operation/retirer?montant=?	| Retirer de l'argent | montant | 
+PUT	| /operation/virement?montant=?&id1=?&id2=?	| Faire un virement | montant, id1, id2 | 
+
+Paramètres :
+```
+{
+    "id": "xxx",
+    "type": "xxx",
+    "ibansource": "xxx",
+    "ibandest": "xxx",
+    "montant": "xxx",
+    "date": "yyyy-MM-dd"
+}
