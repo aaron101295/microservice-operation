@@ -26,7 +26,7 @@ Pour information notre docker se lance sur l'IP 192.168.99.100.
 
 # Exemple de requêtes
 
-Method	| Path	| Description | Paramètres
+Méthod	| Path	| Description | Paramètres
 ------------- | ------------------------- | ------------- |:----------------:|
 GET	| /operation/all	| Afficher toutes les opérations	| | 
 POST	| /operation/creer	| Créer une operation  | Oui, cf Paramètres | 
