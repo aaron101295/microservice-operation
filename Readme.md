@@ -33,7 +33,7 @@ POST	| /operation/creer	| Créer une operation  | Oui, cf Paramètres |
 DELETE	| /operation/supprimer/{id}	| Supprimer une opération	| | 
 PUT	| /operation/MAJOperation/{id}	| Modifier une operation | Oui, cf Paramètres | 
 GET	| /operation/byType/{type}	| Rechercher une opération par type	| | 
-GET	| /operation/bydate/{yyyy-MM-dd"}	| Rechercher une opération par date	| | 
+GET	| /operation/bydate?date=?	| Rechercher une opération par date	| | 
 GET	| /operation/source/{ibansource}/dest/{ibandest} | Rechercher une opération par iban source et iban dest	| | 
 PUT	| /operation/retirer?montant=?	| Retirer de l'argent | montant | 
 PUT	| /operation/virement?montant=?&id1=?&id2=?	| Faire un virement d'un compte 1 à un compte 2 | montant, id1, id2 | 
